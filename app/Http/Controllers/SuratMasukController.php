@@ -31,14 +31,6 @@ class SuratMasukController extends Controller
             $query->whereDate('tanggal_masuk', $request->tanggal);
         }
 
-        if ($request->filled('sifat') && $request->sifat != 'semua') {
-            $query->where('sifat', $request->sifat);
-        }
-
-        if ($request->filled('prioritas') && $request->prioritas != 'semua') {
-            $query->where('prioritas', $request->prioritas);
-        }
-
         $suratMasuk = $query->latest()->paginate(10);
 
         return view('surat-masuk.index', compact('suratMasuk'));
@@ -63,8 +55,6 @@ class SuratMasukController extends Controller
             'tanggal_masuk' => 'required|date',
             'pengirim' => 'required|string',
             'perihal' => 'required|string',
-            'sifat' => 'required|in:biasa,penting,rahasia',
-            'prioritas' => 'required|in:normal,urgent',
             'catatan' => 'nullable|string',
             'file_lampiran' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
         ]);
@@ -102,8 +92,6 @@ class SuratMasukController extends Controller
             'tanggal_masuk' => 'required|date',
             'pengirim' => 'required|string',
             'perihal' => 'required|string',
-            'sifat' => 'required|in:biasa,penting,rahasia',
-            'prioritas' => 'required|in:normal,urgent',
             'catatan' => 'nullable|string',
             'file_lampiran' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
         ]);

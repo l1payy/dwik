@@ -55,20 +55,6 @@
                             <x-input-error :messages="$errors->get('perihal')" class="mt-2" />
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <!-- Sifat -->
-                            <div class="space-y-2">
-                                <label for="sifat" class="text-sm font-bold text-gray-700 uppercase tracking-wider">Sifat Surat</label>
-                                <select name="sifat" id="sifat" required
-                                    class="block w-full px-4 py-3 bg-gray-50 border-gray-200 rounded-xl text-sm focus:ring-primary focus:border-primary transition-all">
-                                    <option value="biasa" {{ old('sifat', $suratKeluar->sifat) == 'biasa' ? 'selected' : '' }}>Biasa</option>
-                                    <option value="penting" {{ old('sifat', $suratKeluar->sifat) == 'penting' ? 'selected' : '' }}>Penting</option>
-                                    <option value="rahasia" {{ old('sifat', $suratKeluar->sifat) == 'rahasia' ? 'selected' : '' }}>Rahasia</option>
-                                </select>
-                                <x-input-error :messages="$errors->get('sifat')" class="mt-2" />
-                            </div>
-                        </div>
-
                         <!-- File Lampiran -->
                         <div class="space-y-2">
                             <label class="text-sm font-bold text-gray-700 uppercase tracking-wider">Draft Dokumen (PDF)</label>

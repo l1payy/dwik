@@ -14,13 +14,13 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans text-gray-900 antialiased bg-gray-50/50">
+    <body class="font-sans text-gray-900 antialiased bg-primary">
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
-            <div class="w-full sm:max-w-md mt-6 px-10 py-12 bg-white shadow-[0_20px_50px_rgba(230,119,38,0.12)] border border-gray-100 sm:rounded-[2.5rem] transition-all overflow-hidden">
+            <div class="w-full sm:max-w-md mt-6 px-10 py-12 bg-white/10 backdrop-blur-lg shadow-2xl border border-white/20 sm:rounded-[2.5rem] transition-all overflow-hidden">
                 {{ $slot }}
             </div>
             <div class="mt-8 text-center">
-                <p class="text-[10px] font-black text-gray-400 uppercase tracking-[0.3em]">© 2026 BPBD Kota Binjai</p>
+                <p class="text-[10px] font-black text-white/70 uppercase tracking-[0.3em]">© 2026 BPBD Kota Binjai</p>
             </div>
         </div>
     </body>

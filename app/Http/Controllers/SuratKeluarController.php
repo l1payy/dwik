@@ -29,10 +29,6 @@ class SuratKeluarController extends Controller
             });
         }
 
-        if ($request->has('sifat') && $request->sifat != 'semua') {
-            $query->where('sifat', $request->sifat);
-        }
-
         if ($request->has('status') && $request->status != 'semua') {
             $query->where('status', $request->status);
         }
@@ -60,8 +56,7 @@ class SuratKeluarController extends Controller
             'tanggal_surat' => 'required|date',
             'penerima' => 'required|string',
             'perihal' => 'required|string',
-            'sifat' => 'required|in:biasa,penting,rahasia',
-            'file_lampiran' => 'nullable|file|mimes:pdf|max:5120',
+            'file_lampiran' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:10240',
         ]);
 
         if ($request->hasFile('file_lampiran')) {
@@ -93,8 +88,7 @@ class SuratKeluarController extends Controller
             'tanggal_surat' => 'required|date',
             'penerima' => 'required|string',
             'perihal' => 'required|string',
-            'sifat' => 'required|in:biasa,penting,rahasia',
-            'file_lampiran' => 'nullable|file|mimes:pdf|max:5120',
+            'file_lampiran' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:10240',
         ]);
 
         if ($request->hasFile('file_lampiran')) {

@@ -20,8 +20,6 @@ return new class extends Migration
             $table->string('pengirim');
             $table->string('instansi_pengirim')->nullable();
             $table->string('perihal');
-            $table->enum('sifat', ['biasa', 'penting', 'rahasia'])->default('biasa');
-            $table->enum('prioritas', ['normal', 'urgent'])->default('normal');
             $table->enum('status', ['diterima', 'terdisposisi', 'selesai'])->default('diterima');
             $table->string('file_lampiran')->nullable();
             $table->text('catatan')->nullable();

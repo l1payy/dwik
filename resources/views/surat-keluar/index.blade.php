@@ -16,7 +16,7 @@
                 @endif
             </div>
 
-            <!-- Filters & Search -->
+            <!-- Search -->
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 mb-8">
                 <form action="{{ route('surat-keluar.index') }}" method="GET" class="flex flex-col md:flex-row gap-6 items-center">
                     <div class="flex-1 relative w-full">
@@ -26,19 +26,6 @@
                             </svg>
                         </div>
                         <input type="text" name="search" value="{{ request('search') }}" class="block w-full pl-10 pr-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:ring-primary focus:border-primary transition-all" placeholder="Cari berdasarkan No Surat atau Perihal...">
-                    </div>
-                    
-                    <div class="flex items-center space-x-4 w-full md:w-auto">
-                        <select name="sifat" class="block w-full md:w-48 px-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:ring-primary focus:border-primary transition-all">
-                            <option value="semua">Semua Sifat</option>
-                            <option value="biasa" {{ request('sifat') == 'biasa' ? 'selected' : '' }}>Biasa</option>
-                            <option value="penting" {{ request('sifat') == 'penting' ? 'selected' : '' }}>Penting</option>
-                            <option value="rahasia" {{ request('sifat') == 'rahasia' ? 'selected' : '' }}>Rahasia</option>
-                        </select>
-                        
-                        <button type="submit" class="px-6 py-2.5 bg-gray-900 text-white text-sm font-bold rounded-xl hover:bg-gray-800 transition-colors">
-                            Filter
-                        </button>
                     </div>
                 </form>
             </div>
@@ -61,15 +48,6 @@
                                 <tr class="hover:bg-gray-50 transition-colors duration-200">
                                     <td class="px-6 py-4">
                                         <div class="text-sm font-bold text-primary">{{ $item->no_surat }}</div>
-                                        <div class="mt-1">
-                                            @if($item->sifat == 'penting')
-                                                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-red-100 text-red-600 uppercase">Penting</span>
-                                            @elseif($item->sifat == 'rahasia')
-                                                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-100 text-purple-600 uppercase">Rahasia</span>
-                                            @else
-                                                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-600 uppercase">Biasa</span>
-                                            @endif
-                                        </div>
                                     </td>
                                     <td class="px-6 py-4">
                                         <div class="text-sm text-gray-600 font-medium">{{ $item->tanggal_surat->format('d M Y') }}</div>

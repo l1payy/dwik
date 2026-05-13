@@ -32,11 +32,6 @@
             <td>{{ $suratKeluar->no_surat }}</td>
         </tr>
         <tr>
-            <td>Sifat</td>
-            <td>:</td>
-            <td>{{ ucfirst($suratKeluar->sifat) }}</td>
-        </tr>
-        <tr>
             <td>Lampiran</td>
             <td>:</td>
             <td>-</td>

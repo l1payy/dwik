@@ -13,15 +13,90 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        <style>
+            [x-cloak] { display: none !important; }
+        </style>
     </head>
     <body class="font-sans antialiased bg-gray-50/50">
         <div class="min-h-screen">
             @include('layouts.navigation')
 
             <!-- Page Content -->
-            <main>
+            <main class="flex-grow">
                 {{ $slot }}
             </main>
+
+            <!-- Footer -->
+            <footer class="bg-[#E67725] text-white pt-16 pb-8 mt-auto">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                        <!-- Brand Section -->
+                        <div class="space-y-6">
+                            <div class="flex items-center space-x-3">
+                                <img src="{{ asset('storage/logo.png') }}" alt="Logo" class="h-12 w-auto">
+                                <span class="text-lg font-black uppercase tracking-tighter">BPBD KOTA BINJAI</span>
+                            </div>
+                            <div class="space-y-4">
+                                <h3 class="text-sm font-black uppercase tracking-widest">Tentang Kami</h3>
+                                <p class="text-sm text-white/70 leading-relaxed font-medium">
+                                    Badan Penanggulangan Bencana Daerah (BPBD) Kota Binjai menyelenggarakan urusan penanggulangan bencana mulai dari pra-bencana, saat bencana, hingga pasca-bencana.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Contact Section -->
+                        <div class="space-y-6">
+                            <h3 class="text-sm font-black uppercase tracking-widest">Hubungi Kami</h3>
+                            <div class="space-y-4 text-sm text-white/70 font-medium leading-relaxed">
+                                <p>Jl. Diponegoro No.113, Mencirim, Kec. Binjai Tim., Kota Binjai, Sumatera Utara 20351</p>
+                                <p>Telp: 061-8821935<br>Email: bpbdkotabinjai@gmail.com</p>
+                                <a href="https://www.google.com/maps/search/?api=1&query=BPBD+Kota+Binjai" target="_blank" class="inline-flex items-center text-white hover:underline">
+                                    Lihat di Maps
+                                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Social & Links -->
+                        <div class="grid grid-cols-2 gap-8 md:col-span-1">
+                            <div class="space-y-6">
+                                <h3 class="text-sm font-black uppercase tracking-widest">Sosial Media</h3>
+                                <ul class="space-y-3 text-sm text-white/70 font-medium">
+                                    <li><a href="#" class="hover:text-white transition-colors">Instagram</a></li>
+                                    <li><a href="#" class="hover:text-white transition-colors">Youtube</a></li>
+                                    <li><a href="#" class="hover:text-white transition-colors">Facebook</a></li>
+                                </ul>
+                            </div>
+                            <div class="space-y-6">
+                                <h3 class="text-sm font-black uppercase tracking-widest">Link Terkait</h3>
+                                <ul class="space-y-3 text-sm text-white/70 font-medium">
+                                    <li><a href="https://binjaikota.go.id" target="_blank" class="hover:text-white transition-colors">Pemko Binjai</a></li>
+                                    <li><a href="https://bnpb.go.id" target="_blank" class="hover:text-white transition-colors">BNPB</a></li>
+                                    <li><a href="#" class="hover:text-white transition-colors">Layanan Digital</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Map Section -->
+                        <div class="space-y-6">
+                            <h3 class="text-sm font-black uppercase tracking-widest">Lokasi BPBD Kota Binjai</h3>
+                            <div class="rounded-2xl overflow-hidden shadow-2xl border-4 border-white/10 h-48 bg-gray-200 relative group">
+                                <iframe 
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3982.123456789!2d98.5085!3d3.6062!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3031267890abcdef%3A0x1234567890abcdef!2sBPBD%20Kota%20Binjai!5e0!3m2!1sid!2sid!4v1715560000000!5m2!1sid!2sid" 
+                                    width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Copyright -->
+                    <div class="pt-8 border-t border-white/10 text-center">
+                        <p class="text-xs font-bold text-white/50 uppercase tracking-[0.2em]">
+                            © Copyright 2026 • BPBD Kota Binjai
+                        </p>
+                    </div>
+                </div>
+            </footer>
         </div>
 
         <!-- Toast Notification Container -->

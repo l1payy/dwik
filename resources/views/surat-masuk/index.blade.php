@@ -33,25 +33,6 @@
                                 <input type="date" name="tanggal" value="{{ request('tanggal') }}" onchange="this.form.submit()" class="block w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-primary focus:border-primary">
                             </div>
                         </div>
-                        <div class="flex flex-wrap items-center gap-4 text-xs">
-                            <div class="flex items-center space-x-2">
-                                <span class="text-gray-500 font-semibold uppercase">Sifat:</span>
-                                <select name="sifat" onchange="this.form.submit()" class="border-none bg-gray-50 rounded-lg py-1 pl-2 pr-8 focus:ring-0 text-xs font-semibold">
-                                    <option value="semua" {{ !request('sifat') || request('sifat') == 'semua' ? 'selected' : '' }}>Semua</option>
-                                    <option value="biasa" {{ request('sifat') == 'biasa' ? 'selected' : '' }}>Biasa</option>
-                                    <option value="penting" {{ request('sifat') == 'penting' ? 'selected' : '' }}>Penting</option>
-                                    <option value="rahasia" {{ request('sifat') == 'rahasia' ? 'selected' : '' }}>Rahasia</option>
-                                </select>
-                            </div>
-                            <div class="flex items-center space-x-2">
-                                <span class="text-gray-500 font-semibold uppercase">Prioritas:</span>
-                                <div class="flex bg-gray-100 p-1 rounded-lg">
-                                    <button type="submit" name="prioritas" value="semua" class="px-3 py-1 rounded-md {{ !request('prioritas') || request('prioritas') == 'semua' ? 'bg-white shadow-sm text-primary font-bold' : 'text-gray-500' }}">SEMUA</button>
-                                    <button type="submit" name="prioritas" value="urgent" class="px-3 py-1 rounded-md {{ request('prioritas') == 'urgent' ? 'bg-orange-500 text-white font-bold shadow-sm' : 'text-gray-500' }}">URGENT</button>
-                                    <button type="submit" name="prioritas" value="normal" class="px-3 py-1 rounded-md {{ request('prioritas') == 'normal' ? 'bg-blue-500 text-white font-bold shadow-sm' : 'text-gray-500' }}">NORMAL</button>
-                                </div>
-                            </div>
-                        </div>
                     </form>
                 </div>
 
@@ -74,19 +55,6 @@
                                     <tr class="hover:bg-gray-50 transition-colors duration-200">
                                         <td class="px-6 py-4">
                                                 <div class="text-sm font-bold text-primary">{{ $item->no_surat }}</div>
-                                                <div class="mt-1 flex gap-2">
-                                                    @if($item->sifat == 'penting')
-                                                        <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-red-100 text-red-600 uppercase">Penting</span>
-                                                    @elseif($item->sifat == 'rahasia')
-                                                        <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-100 text-purple-600 uppercase">Rahasia</span>
-                                                    @else
-                                                        <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-600 uppercase">Biasa</span>
-                                                    @endif
-
-                                                    @if($item->prioritas == 'urgent')
-                                                        <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-orange-100 text-orange-600 uppercase">Urgent</span>
-                                                    @endif
-                                                </div>
                                             </td>
                                             <td class="px-6 py-4">
                                                 <div class="text-sm text-gray-600 font-medium">{{ $item->tanggal_masuk->format('d M Y') }}</div>

@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('penerima');
             $table->string('instansi_penerima')->nullable();
             $table->string('perihal');
-            $table->string('sifat');
             $table->enum('status', ['draft', 'menunggu_persetujuan', 'disetujui', 'ditolak'])->default('draft');
             $table->string('file_lampiran')->nullable();
             $table->text('catatan')->nullable();

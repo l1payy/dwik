@@ -6,9 +6,9 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}" class="flex items-center group">
-                            <img src="{{ asset('storage/logo.png') }}" alt="Logo" class="h-10 w-auto rounded-lg shadow-md group-hover:scale-110 transition-transform brightness-110">
-                            <span class="ml-3 text-lg font-black text-white uppercase tracking-tighter group-hover:text-white/80 transition-colors">E-Surat</span>
-                        </a>
+                        <img src="{{ asset('storage/logo.png') }}" alt="Logo" class="h-10 w-auto rounded-lg shadow-md group-hover:scale-110 transition-transform">
+                        <span class="ml-3 text-lg font-black text-white uppercase tracking-tighter group-hover:text-white/80 transition-colors">E-Surat</span>
+                    </a>
                 </div>
 
                 <!-- Navigation Links -->
@@ -18,8 +18,8 @@
                     </x-nav-link>
 
                     <x-nav-link :href="route('surat-masuk.index')" :active="request()->routeIs('surat-masuk.*')" class="text-xs font-black uppercase tracking-widest relative">
-                            {{ __('Surat Masuk') }}
-                        </x-nav-link>
+                        {{ __('Surat Masuk') }}
+                    </x-nav-link>
 
                     <x-nav-link :href="route('surat-keluar.index')" :active="request()->routeIs('surat-keluar.*')" class="text-xs font-black uppercase tracking-widest">
                         {{ __('Surat Keluar') }}
@@ -45,9 +45,9 @@
                     <input type="text" class="block w-full pl-10 pr-3 py-1.5 border border-white/20 rounded-lg bg-white/10 text-white placeholder-white/50 text-sm focus:ring-white focus:border-white" placeholder="Cari surat...">
                 </div>
 
-                <!-- Notifications Dropdown -->
-                <div class="relative" x-data="{ openNotif: false }">
-                    <button @click="openNotif = !openNotif" class="relative p-2 text-white/70 hover:text-white transition-colors focus:outline-none">
+                <!-- Notifications Button -->
+                <div class="relative">
+                    <button @click="notifOpen = true" type="button" class="relative p-2 text-white/70 hover:text-white transition-colors focus:outline-none">
                         <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                         </svg>
@@ -60,63 +60,32 @@
                             </span>
                         @endif
                     </button>
-
-                    <div x-show="openNotif" @click.away="openNotif = false" x-transition class="absolute right-0 mt-2 w-80 bg-white rounded-2xl shadow-xl border border-gray-100 z-50 overflow-hidden" style="display: none;">
-                        <div class="p-4 border-b border-gray-100 flex items-center justify-between bg-gray-50/50">
-                            <h3 class="text-xs font-bold text-gray-900 uppercase tracking-widest">Notifikasi</h3>
-                            <form action="{{ route('notifikasi.read-all') }}" method="POST">
-                                @csrf
-                                <button type="submit" class="text-[10px] font-bold text-primary hover:underline uppercase">Tandai Semua Dibaca</button>
-                            </form>
-                        </div>
-                        <div class="max-h-96 overflow-y-auto">
-                            @forelse(\App\Models\Notifikasi::where('user_id', Auth::id())->latest()->limit(5)->get() as $notif)
-                                <div class="p-4 border-b border-gray-50 hover:bg-gray-50/50 transition-colors {{ !$notif->is_read ? 'bg-orange-50/30' : '' }}">
-                                    <div class="flex items-start">
-                                        <div class="p-2 rounded-lg mr-3 {{ $notif->tipe == 'surat_masuk' ? 'bg-blue-100 text-blue-600' : 'bg-orange-100 text-primary' }}">
-                                            @if($notif->tipe == 'surat_masuk')
-                                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-                                            @else
-                                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" /></svg>
-                                            @endif
-                                        </div>
-                                        <div class="flex-1">
-                                            <p class="text-xs font-bold text-gray-900">{{ $notif->judul }}</p>
-                                            <p class="text-[10px] text-gray-500 mt-0.5 line-clamp-2">{{ $notif->pesan }}</p>
-                                            <p class="text-[10px] text-gray-400 mt-1 uppercase font-medium">{{ $notif->created_at->diffForHumans() }}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            @empty
-                                <div class="p-8 text-center">
-                                    <p class="text-xs text-gray-400">Tidak ada notifikasi baru.</p>
-                                </div>
-                            @endforelse
-                        </div>
-                        <a href="{{ route('notifikasi.index') }}" class="block p-3 text-center text-[10px] font-bold text-gray-400 uppercase tracking-widest hover:bg-gray-50 transition-colors border-t border-gray-100">
-                            Lihat Semua Notifikasi
-                        </a>
-                    </div>
                 </div>
 
                 <!-- Profile Dropdown -->
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
-                        <button class="flex items-center space-x-2 focus:outline-none group">
+                        <div class="flex items-center space-x-3 focus:outline-none group cursor-pointer py-1 px-2 rounded-2xl hover:bg-white/10 transition-all duration-200">
                             <div class="text-right hidden md:block">
-                                <div class="text-xs font-bold text-white group-hover:text-white/80 transition-colors">{{ Auth::user()->name }}</div>
-                                <div class="text-[10px] text-white/60 uppercase tracking-widest">{{ Auth::user()->role }}</div>
+                                <div class="text-xs font-black text-white leading-tight">{{ Auth::user()->name }}</div>
+                                <div class="text-[10px] text-white/70 uppercase tracking-widest font-bold">{{ Auth::user()->role }}</div>
                             </div>
-                            <div class="h-9 w-9 rounded-xl bg-white/20 border border-white/30 flex items-center justify-center text-white text-xs font-black shadow-lg backdrop-blur-sm group-hover:scale-105 transition-all">
+                            <div class="h-10 w-10 rounded-xl bg-white text-primary flex items-center justify-center text-sm font-black shadow-lg shadow-black/10 group-hover:scale-105 transition-all duration-200">
                                 {{ substr(Auth::user()->name, 0, 1) }}
                             </div>
-                        </button>
+                        </div>
                     </x-slot>
 
                     <x-slot name="content">
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
+
+                        <x-dropdown-link :href="route('profile.edit') . '#update-password'">
+                            {{ __('Ubah Password') }}
+                        </x-dropdown-link>
+
+                        <div class="border-t border-gray-100"></div>
 
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -188,41 +157,74 @@
     </div>
 
     <!-- Notification Side Panel (Overlay) -->
-    <div x-show="notifOpen" 
-         x-transition:enter="transform transition ease-in-out duration-300 sm:duration-500"
-         x-transition:enter-start="translate-x-full"
-         x-transition:enter-end="translate-x-0"
-         x-transition:leave="transform transition ease-in-out duration-300 sm:duration-500"
-         x-transition:leave-start="translate-x-0"
-         x-transition:leave-end="translate-x-full"
-         class="fixed inset-y-0 right-0 pl-10 max-w-full flex" style="display: none;">
-        <div class="w-screen max-w-md">
-            <div class="h-full flex flex-col bg-white shadow-xl">
-                <div class="p-6 border-b border-gray-100 flex items-center justify-between">
-                    <h2 class="text-lg font-bold text-gray-900">Panel Notifikasi</h2>
-                    <button @click="notifOpen = false" class="text-gray-400 hover:text-gray-500">
-                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                </div>
-                <div class="flex-1 overflow-y-auto p-4 space-y-4">
-                    <!-- Sample Notifications -->
-                    <div class="flex items-start p-3 bg-orange-50 rounded-lg border border-orange-100">
-                        <div class="shrink-0 bg-orange-100 p-2 rounded-lg text-primary">
-                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+    <div x-show="notifOpen" class="fixed inset-0 z-[60]" x-cloak>
+        <!-- Backdrop -->
+        <div x-show="notifOpen" 
+             x-transition:enter="ease-in-out duration-500"
+             x-transition:enter-start="opacity-0"
+             x-transition:enter-end="opacity-100"
+             x-transition:leave="ease-in-out duration-500"
+             x-transition:leave-start="opacity-100"
+             x-transition:leave-end="opacity-0"
+             @click="notifOpen = false"
+             class="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+
+        <div class="fixed inset-y-0 right-0 pl-10 max-w-full flex">
+            <div x-show="notifOpen" 
+                 x-transition:enter="transform transition ease-in-out duration-300 sm:duration-500"
+                 x-transition:enter-start="translate-x-full"
+                 x-transition:enter-end="translate-x-0"
+                 x-transition:leave="transform transition ease-in-out duration-300 sm:duration-500"
+                 x-transition:leave-start="translate-x-0"
+                 x-transition:leave-end="translate-x-full"
+                 class="w-screen max-w-md">
+                <div class="h-full flex flex-col bg-white shadow-xl">
+                    <div class="p-6 border-b border-gray-100 flex items-center justify-between">
+                        <h2 class="text-lg font-bold text-gray-900 uppercase tracking-tighter">Panel Notifikasi</h2>
+                        <button @click="notifOpen = false" class="text-gray-400 hover:text-gray-500 transition-colors">
+                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                             </svg>
-                        </div>
-                        <div class="ms-3">
-                            <p class="text-sm font-semibold text-gray-900">Surat Masuk Baru dari Sekretariat Daerah</p>
-                            <p class="text-xs text-gray-500 mt-1">10 mins ago</p>
-                        </div>
+                        </button>
                     </div>
-                    <!-- More notifications... -->
-                </div>
-                <div class="p-4 border-t border-gray-100">
-                    <button class="w-full text-center text-sm font-semibold text-primary hover:text-orange-700">Tandai Semua Sudah Dibaca</button>
+                    <div class="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50/30">
+                        @forelse(\App\Models\Notifikasi::where('user_id', Auth::id())->latest()->limit(10)->get() as $notif)
+                            <div class="flex items-start p-4 rounded-2xl border transition-all duration-200 {{ !$notif->is_read ? 'bg-white border-primary/20 shadow-sm ring-1 ring-primary/5' : 'bg-gray-50/50 border-gray-100' }}">
+                                <div class="shrink-0 {{ $notif->tipe == 'surat_masuk' ? 'bg-blue-100 text-blue-600' : 'bg-orange-100 text-primary' }} p-2.5 rounded-xl">
+                                    @if($notif->tipe == 'surat_masuk')
+                                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                                    @else
+                                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" /></svg>
+                                    @endif
+                                </div>
+                                <div class="ms-4 flex-1">
+                                    <div class="flex justify-between items-start">
+                                        <p class="text-sm font-black text-gray-900 leading-tight">{{ $notif->judul }}</p>
+                                        @if(!$notif->is_read)
+                                            <span class="w-2 h-2 bg-primary rounded-full"></span>
+                                        @endif
+                                    </div>
+                                    <p class="text-xs text-gray-500 mt-1 leading-relaxed">{{ $notif->pesan }}</p>
+                                    <p class="text-[10px] text-gray-400 mt-2 uppercase font-black tracking-widest">{{ $notif->created_at->diffForHumans() }}</p>
+                                </div>
+                            </div>
+                        @empty
+                            <div class="flex flex-col items-center justify-center h-full text-center p-8">
+                                <div class="p-6 bg-white rounded-3xl shadow-sm border border-gray-100 mb-4">
+                                    <svg class="h-12 w-12 text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                                    </svg>
+                                </div>
+                                <p class="text-sm font-black text-gray-400 uppercase tracking-widest">Tidak ada notifikasi</p>
+                            </div>
+                        @endforelse
+                    </div>
+                    <div class="p-6 border-t border-gray-100 bg-white">
+                        <form action="{{ route('notifikasi.read-all') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="w-full py-4 bg-primary text-white text-xs font-black rounded-2xl shadow-lg shadow-primary/20 hover:bg-orange-600 transition-all transform hover:-translate-y-0.5 uppercase tracking-widest">Tandai Semua Sudah Dibaca</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

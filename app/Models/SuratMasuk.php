@@ -20,8 +20,6 @@ class SuratMasuk extends Model
         'pengirim',
         'instansi_pengirim',
         'perihal',
-        'sifat',
-        'prioritas',
         'status',
         'file_lampiran',
         'catatan',
