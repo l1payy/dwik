@@ -29,9 +29,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'sekretaris@bpbd.binjaikota.go.id',
             'password' => Hash::make('password'),
             'role' => 'sekretaris',
-            'nip' => '198501012010011001',
-            'jabatan' => 'Sekretaris',
-            'status' => 'active',
         ]);
 
         // Pimpinan
@@ -40,9 +37,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'pimpinan@bpbd.binjaikota.go.id',
             'password' => Hash::make('password'),
             'role' => 'pimpinan',
-            'nip' => '197501011998011001',
-            'jabatan' => 'Kepala Pelaksana',
-            'status' => 'active',
         ]);
 
         // Staff
@@ -51,9 +45,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'staff@bpbd.binjaikota.go.id',
             'password' => Hash::make('password'),
             'role' => 'staff',
-            'nip' => '199501012020011001',
-            'jabatan' => 'Pengadministrasi Umum',
-            'status' => 'active',
         ]);
 
         // Seed Surat Masuk
@@ -68,6 +59,7 @@ class DatabaseSeeder extends Seeder
             'status' => 'selesai',
             'catatan' => 'Sudah didisposisikan ke Bidang Kedaruratan',
             'created_by' => $sekretaris->id,
+            'instansi_pengirim' => 'Dinas Kesehatan Kota Binjai',
         ]);
 
         SuratMasuk::create([
@@ -81,6 +73,7 @@ class DatabaseSeeder extends Seeder
             'status' => 'selesai',
             'catatan' => 'Kepala BPBD akan hadir',
             'created_by' => $sekretaris->id,
+            'instansi_pengirim' => 'Sekretariat Daerah',
         ]);
 
         // Seed Surat Keluar
@@ -88,6 +81,7 @@ class DatabaseSeeder extends Seeder
             'no_surat' => '001/KELUAR/2026',
             'tanggal_surat' => '2026-05-03',
             'penerima' => 'Walikota Binjai',
+            'instansi_penerima' => 'Pemerintah Kota Binjai',
             'perihal' => 'Laporan Harian Pusdalops Penanggulangan Bencana',
             'sifat' => 'biasa',
             'status' => 'disetujui',

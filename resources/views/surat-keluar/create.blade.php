@@ -37,7 +37,7 @@
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="grid grid-cols-1 md:grid-cols-1 gap-6">
                             <!-- Penerima -->
                             <div class="space-y-2">
                                 <label for="penerima" class="text-sm font-bold text-gray-700 uppercase tracking-wider">Ditujukan kepada</label>

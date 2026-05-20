@@ -1,7 +1,7 @@
 <x-guest-layout>
     <div class="mb-8 text-center">
         <div class="flex justify-center mb-6">
-            <img src="{{ asset('storage/logo.png') }}" alt="Logo" class="h-32 w-auto transition-transform hover:scale-110 duration-300">
+            <img src="{{ asset('storage/logo.png') }}" alt="Logo" class="h-32 w-auto transition-transform hover:scale-110 duration-300 drop-shadow-lg">
         </div>
         <h2 class="text-2xl font-black text-white uppercase tracking-tight">E-Surat BPBD</h2>
         <p class="text-sm text-white/80 mt-1 font-medium">Sistem Informasi Manajemen Surat & Dokumen</p>
@@ -33,11 +33,6 @@
         <div class="space-y-1.5">
             <div class="flex items-center justify-between">
                 <x-input-label for="password" :value="__('Password')" class="text-xs font-bold uppercase tracking-wider text-white/90" />
-                @if (Route::has('password.request'))
-                    <a class="text-[11px] font-bold text-white/90 hover:text-white transition-colors uppercase tracking-wider" href="{{ route('password.request') }}">
-                        Lupa Password?
-                    </a>
-                @endif
             </div>
             <div class="relative group">
                 <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-white/50 group-focus-within:text-white transition-colors">
@@ -55,7 +50,7 @@
         <!-- Remember Me -->
         <div class="flex items-center justify-between py-1">
             <label for="remember_me" class="inline-flex items-center group cursor-pointer">
-                <input id="remember_me" type="checkbox" class="w-4 h-4 rounded border-white/30 text-primary bg-white/10 shadow-sm focus:ring-white transition-all cursor-pointer" name="remember">
+                <input id="remember_me" type="checkbox" class="w-4 h-4 rounded border-white/30 text-primary bg-white shadow-sm focus:ring-white transition-all cursor-pointer" name="remember">
                 <span class="ms-2.5 text-xs font-bold text-white/80 uppercase tracking-wider group-hover:text-white transition-colors">Ingat Saya</span>
             </label>
         </div>

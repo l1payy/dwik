@@ -66,7 +66,7 @@ class SuratKeluarController extends Controller
 
         $validated['created_by'] = Auth::id();
         $validated['status'] = 'disetujui';
-        $validated['instansi_penerima'] = $request->penerima;
+        $validated['instansi_penerima'] = $request->penerima; // Keep this as is for now or add to form later
 
         SuratKeluar::create($validated);
 
