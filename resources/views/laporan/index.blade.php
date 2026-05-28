@@ -15,6 +15,7 @@
                         <div>
                             <label class="block text-xs font-bold text-gray-700 uppercase tracking-widest mb-2">Jenis Laporan</label>
                             <select name="type" class="w-full border-gray-200 rounded-xl text-sm focus:ring-primary focus:border-primary">
+                                <option value="semua" {{ $type == 'semua' ? 'selected' : '' }}>Semua Surat</option>
                                 <option value="surat_masuk" {{ $type == 'surat_masuk' ? 'selected' : '' }}>Surat Masuk</option>
                                 <option value="surat_keluar" {{ $type == 'surat_keluar' ? 'selected' : '' }}>Surat Keluar</option>
                             </select>
@@ -52,33 +53,46 @@
                                 <tr>
                                     <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-widest">No. Surat</th>
                                     <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-widest">Tanggal</th>
-                                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-widest">{{ $type == 'surat_masuk' ? 'Asal Surat' : 'Penerima' }}</th>
+                                    @if($type == 'semua')
+                                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-widest">Tipe</th>
+                                    @endif
+                                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-widest">
+                                        {{ $type == 'surat_masuk' ? 'Asal Surat' : ($type == 'surat_keluar' ? 'Penerima' : 'Pengirim/Penerima') }}
+                                    </th>
                                     <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-widest">Perihal</th>
-                                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-widest">Status</th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-100">
                                 @forelse($data as $item)
                                     <tr class="hover:bg-gray-50/50 transition-colors">
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">{{ $item->no_surat }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                            {{ \Carbon\Carbon::parse($type == 'surat_masuk' ? $item->tanggal_masuk : $item->tanggal_surat)->translatedFormat('d F Y') }}
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">
-                                            {{ $type == 'surat_masuk' ? $item->pengirim : $item->penerima }}
-                                        </td>
-                                        <td class="px-6 py-4 text-sm text-gray-500 truncate max-w-xs">{{ $item->perihal }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="px-3 py-1 text-[10px] font-bold uppercase tracking-wider rounded-full 
-                                                {{ $item->status == 'selesai' || $item->status == 'disetujui' ? 'bg-green-100 text-green-700' : 
-                                                   ($item->status == 'ditolak' ? 'bg-red-100 text-red-700' : 'bg-orange-100 text-primary') }}">
-                                                {{ str_replace('_', ' ', $item->status) }}
-                                            </span>
-                                        </td>
+                                        @if($type == 'semua')
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">{{ $item['no_surat'] }}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                {{ \Carbon\Carbon::parse($item['tanggal'])->translatedFormat('d F Y') }}
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span class="px-3 py-1 text-[10px] font-bold uppercase tracking-wider rounded-full {{ $item['tipe'] == 'Surat Masuk' ? 'bg-blue-100 text-blue-700' : 'bg-green-100 text-green-700' }}">
+                                                    {{ $item['tipe'] }}
+                                                </span>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">
+                                                {{ $item['pihak'] }}
+                                            </td>
+                                            <td class="px-6 py-4 text-sm text-gray-500 truncate max-w-xs">{{ $item['perihal'] }}</td>
+                                        @else
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">{{ $item->no_surat }}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                {{ \Carbon\Carbon::parse($type == 'surat_masuk' ? $item->tanggal_masuk : $item->tanggal_surat)->translatedFormat('d F Y') }}
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">
+                                                {{ $type == 'surat_masuk' ? $item->pengirim : $item->penerima }}
+                                            </td>
+                                            <td class="px-6 py-4 text-sm text-gray-500 truncate max-w-xs">{{ $item->perihal }}</td>
+                                        @endif
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="5" class="px-6 py-12 text-center">
+                                        <td colspan="{{ $type == 'semua' ? 5 : 4 }}" class="px-6 py-12 text-center">
                                             <div class="flex flex-col items-center">
                                                 <svg class="w-12 h-12 text-gray-200 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                                                 <p class="text-gray-400 font-medium">Tidak ada data untuk periode ini.</p>

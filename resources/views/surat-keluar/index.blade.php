@@ -6,7 +6,7 @@
                     <h1 class="text-3xl font-black text-gray-900 tracking-tight">Surat Keluar</h1>
                     <p class="text-sm text-gray-500 mt-1 font-medium">Daftar surat resmi yang dikeluarkan oleh sistem.</p>
                 </div>
-                @if(auth()->user()->role === 'sekretaris' || auth()->user()->role === 'staff')
+                @if(auth()->user()->role === 'sekretaris')
                 <a href="{{ route('surat-keluar.create') }}" class="inline-flex items-center px-6 py-3 bg-primary border border-transparent rounded-xl font-black text-xs text-white uppercase tracking-widest hover:bg-orange-600 focus:bg-orange-600 active:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-all shadow-lg shadow-primary/20 transform hover:-translate-y-0.5">
                     <svg class="h-4 w-4 mr-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4" />
@@ -68,7 +68,7 @@
                                             </a>
                                             @endif
 
-                                            @if(auth()->user()->role === 'sekretaris' || auth()->user()->role === 'staff')
+                                            @if(auth()->user()->role === 'sekretaris')
                                             <a href="{{ route('surat-keluar.edit', $item) }}" class="p-1.5 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" title="Edit">
                                                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />

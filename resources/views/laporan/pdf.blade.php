@@ -79,22 +79,33 @@
         <thead>
             <tr>
                 <th width="5%">No</th>
-                <th width="20%">No. Surat</th>
-                <th width="15%">Tanggal</th>
-                <th width="20%">{{ $type == 'surat_masuk' ? 'Asal Surat' : 'Penerima' }}</th>
-                <th width="25%">Perihal</th>
-                <th width="15%">Status</th>
+                <th width="{{ $type == 'semua' ? '15%' : '20%' }}">No. Surat</th>
+                <th width="{{ $type == 'semua' ? '12%' : '15%' }}">Tanggal</th>
+                @if($type == 'semua')
+                <th width="13%">Tipe</th>
+                @endif
+                <th width="{{ $type == 'semua' ? '25%' : '30%' }}">
+                    {{ $type == 'surat_masuk' ? 'Asal Surat' : ($type == 'surat_keluar' ? 'Penerima' : 'Pengirim/Penerima') }}
+                </th>
+                <th width="{{ $type == 'semua' ? '30%' : '30%' }}">Perihal</th>
             </tr>
         </thead>
         <tbody>
             @foreach($data as $index => $item)
                 <tr>
                     <td>{{ $index + 1 }}</td>
-                    <td>{{ $item->no_surat }}</td>
-                    <td>{{ \Carbon\Carbon::parse($type == 'surat_masuk' ? $item->tanggal_masuk : $item->tanggal_surat)->translatedFormat('d/m/Y') }}</td>
-                    <td>{{ $type == 'surat_masuk' ? $item->pengirim : $item->penerima }}</td>
-                    <td>{{ $item->perihal }}</td>
-                    <td>{{ ucfirst(str_replace('_', ' ', $item->status)) }}</td>
+                    @if($type == 'semua')
+                        <td>{{ $item->no_surat }}</td>
+                        <td>{{ \Carbon\Carbon::parse($item->tanggal)->translatedFormat('d/m/Y') }}</td>
+                        <td>{{ $item->tipe }}</td>
+                        <td>{{ $item->pihak }}</td>
+                        <td>{{ $item->perihal }}</td>
+                    @else
+                        <td>{{ $item->no_surat }}</td>
+                        <td>{{ \Carbon\Carbon::parse($type == 'surat_masuk' ? $item->tanggal_masuk : $item->tanggal_surat)->translatedFormat('d/m/Y') }}</td>
+                        <td>{{ $type == 'surat_masuk' ? $item->pengirim : $item->penerima }}</td>
+                        <td>{{ $item->perihal }}</td>
+                    @endif
                 </tr>
             @endforeach
         </tbody>

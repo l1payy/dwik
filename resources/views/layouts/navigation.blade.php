@@ -171,7 +171,7 @@
                  class="w-screen max-w-md">
                 <div class="h-full flex flex-col bg-white shadow-xl">
                     <div class="p-6 border-b border-gray-100 flex items-center justify-between">
-                        <h2 class="text-lg font-bold text-gray-900 uppercase tracking-tighter">Panel Notifikasi</h2>
+                        <h2 class="text-lg font-bold text-gray-900 uppercase tracking-tighter">Notifikasi</h2>
                         <button @click="notifOpen = false" class="text-gray-400 hover:text-gray-500 transition-colors">
                             <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />

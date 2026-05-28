@@ -22,7 +22,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.206" />
                     </svg>
                 </div>
-                <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" 
+                <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username"
                     class="block w-full pl-11 pr-4 py-3 bg-white/10 border-white/20 rounded-xl text-sm text-white placeholder-white/40 focus:ring-white focus:border-white transition-all"
                     placeholder="nama@email.com">
             </div>
@@ -57,7 +57,7 @@
 
         <div>
             <button type="submit" class="w-full flex justify-center py-3.5 px-4 border border-transparent rounded-xl shadow-xl text-sm font-black text-primary bg-white hover:bg-orange-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white transition-all transform hover:-translate-y-0.5 active:scale-95 uppercase tracking-widest">
-                Masuk ke Sistem
+                Login
             </button>
         </div>
     </form>
