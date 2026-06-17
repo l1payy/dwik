@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\SuratMasuk;
+use App\Models\KomentarSuratMasuk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -71,6 +72,34 @@ class SuratMasukController extends Controller
         SuratMasuk::create($validated);
 
         return redirect()->route('surat-masuk.index')->with('success', 'Surat masuk berhasil ditambahkan.');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(SuratMasuk $suratMasuk)
+    {
+        $suratMasuk->load('komentar.user', 'disposisi.penerima');
+        return view('surat-masuk.show', compact('suratMasuk'));
+    }
+
+    /**
+     * Add comment to surat masuk (only for pimpinan).
+     */
+    public function addComment(Request $request, SuratMasuk $suratMasuk)
+    {
+        if (!Auth::user()->isPimpinan()) {
+            abort(403, 'Unauthorized');
+        }
+
+        $validated = $request->validate([
+            'komentar' => 'required|string|max:1000',
+        ]);
+
+        $validated['user_id'] = Auth::id();
+        $suratMasuk->komentar()->create($validated);
+
+        return redirect()->route('surat-masuk.show', $suratMasuk)->with('success', 'Komentar berhasil ditambahkan.');
     }
 
     /**

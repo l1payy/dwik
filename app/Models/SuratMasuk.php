@@ -41,4 +41,9 @@ class SuratMasuk extends Model
     {
         return $this->hasMany(Disposisi::class, 'surat_masuk_id');
     }
+
+    public function komentar()
+    {
+        return $this->hasMany(KomentarSuratMasuk::class)->latest();
+    }
 }

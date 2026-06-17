@@ -74,6 +74,14 @@ class SuratKeluarController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     */
+    public function show(SuratKeluar $suratKeluar)
+    {
+        return view('surat-keluar.show', compact('suratKeluar'));
+    }
+
+    /**
      * Show the form for editing the specified resource.
      */
     public function edit(SuratKeluar $suratKeluar)

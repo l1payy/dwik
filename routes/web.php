@@ -25,6 +25,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('surat-masuk/create', [SuratMasukController::class, 'create'])->name('surat-masuk.create')->middleware('role:sekretaris');
     Route::post('surat-masuk', [SuratMasukController::class, 'store'])->name('surat-masuk.store')->middleware('role:sekretaris');
     Route::get('surat-masuk/{surat_masuk}', [SuratMasukController::class, 'show'])->name('surat-masuk.show');
+    Route::post('surat-masuk/{surat_masuk}/komentar', [SuratMasukController::class, 'addComment'])->name('surat-masuk.komentar.store')->middleware('role:pimpinan');
     Route::get('surat-masuk/{surat_masuk}/edit', [SuratMasukController::class, 'edit'])->name('surat-masuk.edit')->middleware('role:sekretaris');
     Route::put('surat-masuk/{surat_masuk}', [SuratMasukController::class, 'update'])->name('surat-masuk.update')->middleware('role:sekretaris');
     Route::delete('surat-masuk/{surat_masuk}', [SuratMasukController::class, 'destroy'])->name('surat-masuk.destroy')->middleware('role:sekretaris');
@@ -36,6 +37,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('surat-keluar', [SuratKeluarController::class, 'index'])->name('surat-keluar.index');
     Route::get('surat-keluar/create', [SuratKeluarController::class, 'create'])->name('surat-keluar.create')->middleware('role:sekretaris');
     Route::post('surat-keluar', [SuratKeluarController::class, 'store'])->name('surat-keluar.store')->middleware('role:sekretaris');
+    Route::get('surat-keluar/{surat_keluar}', [SuratKeluarController::class, 'show'])->name('surat-keluar.show');
     Route::get('surat-keluar/{surat_keluar}/edit', [SuratKeluarController::class, 'edit'])->name('surat-keluar.edit')->middleware('role:sekretaris');
     Route::put('surat-keluar/{surat_keluar}', [SuratKeluarController::class, 'update'])->name('surat-keluar.update')->middleware('role:sekretaris');
     Route::delete('surat-keluar/{surat_keluar}', [SuratKeluarController::class, 'destroy'])->name('surat-keluar.destroy')->middleware('role:sekretaris');
