@@ -151,11 +151,6 @@
                                     <p class="text-sm font-black text-gray-900 truncate">{{ $surat->no_surat }}</p>
                                     <p class="text-xs text-gray-500 font-medium truncate mt-0.5">{{ $surat->perihal }}</p>
                                 </div>
-                                <div class="ml-4 text-right">
-                                    <span class="inline-block px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest {{ $surat->status == 'selesai' ? 'bg-green-100 text-green-600' : ($surat->status == 'pending' ? 'bg-orange-100 text-orange-600' : 'bg-blue-100 text-blue-600') }}">
-                                        {{ $surat->status }}
-                                    </span>
-                                </div>
                             </div>
                         @empty
                             <p class="text-sm text-gray-500 font-bold uppercase tracking-widest text-center py-8">Belum ada surat masuk.</p>
@@ -187,11 +182,6 @@
                                 <div class="flex-1 min-w-0">
                                     <p class="text-sm font-black text-gray-900 truncate">{{ $surat->no_surat }}</p>
                                     <p class="text-xs text-gray-500 font-medium truncate mt-0.5">{{ $surat->perihal }}</p>
-                                </div>
-                                <div class="ml-4 text-right">
-                                    <span class="inline-block px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest {{ $surat->status == 'disetujui' ? 'bg-green-100 text-green-600' : ($surat->status == 'draft' ? 'bg-gray-100 text-gray-600' : 'bg-orange-100 text-orange-600') }}">
-                                        {{ $surat->status }}
-                                    </span>
                                 </div>
                             </div>
                         @empty
