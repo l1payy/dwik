@@ -16,6 +16,19 @@
 
         <style>
             [x-cloak] { display: none !important; }
+            /* FORCE NAVBAR TO BE CLICKABLE AND ON TOP */
+            nav.navbar {
+                z-index: 99999 !important;
+                position: fixed !important;
+                pointer-events: auto !important;
+            }
+            nav.navbar button,
+            nav.navbar [role="button"],
+            nav.navbar .cursor-pointer {
+                pointer-events: auto !important;
+                position: relative !important;
+                z-index: 999999 !important;
+            }
         </style>
     </head>
     <body class="font-sans antialiased bg-gray-50/50">
@@ -23,7 +36,7 @@
             @include('layouts.navigation')
 
             <!-- Page Content -->
-            <main class="flex-grow">
+            <main class="flex-grow relative z-0 pt-20">
                 {{ $slot }}
             </main>
 
