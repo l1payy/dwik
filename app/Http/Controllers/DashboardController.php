@@ -29,7 +29,6 @@ class DashboardController extends Controller
 
         $suratKeluarQuery = SuratKeluar::query()
             ->select('id', 'no_surat', 'perihal', 'tanggal_surat', DB::raw("'keluar' as tipe"), 'created_at')
-            ->where('status', 'disetujui')
             ->whereYear('tanggal_surat', $year);
 
         if ($month && $month != 'semua') {

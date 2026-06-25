@@ -46,8 +46,6 @@ class DatabaseSeeder extends Seeder
             'tanggal_masuk' => '2026-05-02',
             'pengirim' => 'Dinas Kesehatan Kota Binjai',
             'perihal' => 'Koordinasi Penanggulangan Bencana Non-Alam',
-            'status' => 'selesai',
-            'catatan' => 'Sudah didisposisikan ke Bidang Kedaruratan',
             'created_by' => $sekretaris->id,
             'instansi_pengirim' => 'Dinas Kesehatan Kota Binjai',
         ]);
@@ -58,8 +56,6 @@ class DatabaseSeeder extends Seeder
             'tanggal_masuk' => '2026-05-03',
             'pengirim' => 'Sekretariat Daerah',
             'perihal' => 'Undangan Rapat Evaluasi Kinerja Triwulan',
-            'status' => 'selesai',
-            'catatan' => 'Kepala BPBD akan hadir',
             'created_by' => $sekretaris->id,
             'instansi_pengirim' => 'Sekretariat Daerah',
         ]);
@@ -71,7 +67,6 @@ class DatabaseSeeder extends Seeder
             'penerima' => 'Walikota Binjai',
             'instansi_penerima' => 'Pemerintah Kota Binjai',
             'perihal' => 'Laporan Harian Pusdalops Penanggulangan Bencana',
-            'status' => 'disetujui',
             'created_by' => $sekretaris->id,
         ]);
     }

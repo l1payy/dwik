@@ -28,15 +28,4 @@ class SuratMasukObserver
             ]);
         }
     }
-
-    /**
-     * Handle the SuratMasuk "updated" event.
-     */
-    public function updated(SuratMasuk $suratMasuk): void
-    {
-        if ($suratMasuk->isDirty('status')) {
-            // Log status change or notify related users
-            // For example, if status changed to 'terdisposisi', the pengirim of disposisi already knows.
-        }
-    }
 }

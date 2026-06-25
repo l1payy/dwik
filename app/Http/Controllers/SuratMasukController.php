@@ -3,13 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\SuratMasuk;
-use App\Models\KomentarSuratMasuk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Barryvdh\DomPDF\Facade\Pdf;
-use PhpOffice\PhpWord\PhpWord;
-use PhpOffice\PhpWord\IOFactory;
-use PhpOffice\PhpWord\SimpleType\Jc;
 
 class SuratMasukController extends Controller
 {
@@ -56,7 +51,6 @@ class SuratMasukController extends Controller
             'tanggal_masuk' => 'required|date',
             'pengirim' => 'required|string',
             'perihal' => 'required|string',
-            'catatan' => 'nullable|string',
             'file_lampiran' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
         ]);
 
@@ -66,7 +60,6 @@ class SuratMasukController extends Controller
         }
 
         $validated['created_by'] = Auth::id();
-        $validated['status'] = 'diterima';
         $validated['instansi_pengirim'] = $request->pengirim; // Fallback or handle null if migration allows
 
         SuratMasuk::create($validated);
@@ -79,27 +72,7 @@ class SuratMasukController extends Controller
      */
     public function show(SuratMasuk $suratMasuk)
     {
-        $suratMasuk->load('komentar.user', 'disposisi.penerima');
         return view('surat-masuk.show', compact('suratMasuk'));
-    }
-
-    /**
-     * Add comment to surat masuk (only for pimpinan).
-     */
-    public function addComment(Request $request, SuratMasuk $suratMasuk)
-    {
-        if (!Auth::user()->isPimpinan()) {
-            abort(403, 'Unauthorized');
-        }
-
-        $validated = $request->validate([
-            'komentar' => 'required|string|max:1000',
-        ]);
-
-        $validated['user_id'] = Auth::id();
-        $suratMasuk->komentar()->create($validated);
-
-        return redirect()->route('surat-masuk.show', $suratMasuk)->with('success', 'Komentar berhasil ditambahkan.');
     }
 
     /**
@@ -121,7 +94,6 @@ class SuratMasukController extends Controller
             'tanggal_masuk' => 'required|date',
             'pengirim' => 'required|string',
             'perihal' => 'required|string',
-            'catatan' => 'nullable|string',
             'file_lampiran' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
         ]);
 
@@ -144,68 +116,5 @@ class SuratMasukController extends Controller
     {
         $suratMasuk->delete();
         return redirect()->route('surat-masuk.index')->with('success', 'Surat masuk berhasil dihapus.');
-    }
-
-    public function exportPdf(SuratMasuk $suratMasuk)
-    {
-        $suratMasuk->load('disposisi.penerima');
-        $pdf = Pdf::loadView('surat-masuk.disposisi-pdf', compact('suratMasuk'));
-        return $pdf->download('lembar-disposisi-' . str_replace('/', '-', $suratMasuk->no_surat) . '.pdf');
-    }
-
-    public function exportWord(SuratMasuk $suratMasuk)
-    {
-        $suratMasuk->load('disposisi.penerima');
-        $phpWord = new PhpWord();
-        $section = $phpWord->addSection();
-
-        // Header
-        $section->addText('LEMBAR DISPOSISI', ['bold' => true, 'size' => 16], ['alignment' => Jc::CENTER]);
-        $section->addTextBreak(1);
-
-        $tableStyle = ['borderSize' => 6, 'borderColor' => '000000', 'cellMargin' => 80];
-        $phpWord->addTableStyle('DisposisiTable', $tableStyle);
-        $table = $section->addTable('DisposisiTable');
-
-        $table->addRow();
-        $table->addCell(4000)->addText('No. Surat:', ['bold' => true]);
-        $table->addCell(6000)->addText($suratMasuk->no_surat);
-
-        $table->addRow();
-        $table->addCell(4000)->addText('Asal Surat:', ['bold' => true]);
-        $table->addCell(6000)->addText($suratMasuk->pengirim . ' - ' . $suratMasuk->instansi_pengirim);
-
-        $table->addRow();
-        $table->addCell(4000)->addText('Perihal:', ['bold' => true]);
-        $table->addCell(6000)->addText($suratMasuk->perihal);
-
-        $table->addRow();
-        $table->addCell(4000)->addText('Tanggal Surat:', ['bold' => true]);
-        $table->addCell(6000)->addText($suratMasuk->tanggal_surat->format('d/m/Y'));
-
-        $section->addTextBreak(1);
-        $section->addText('RIWAYAT DISPOSISI', ['bold' => true, 'size' => 12]);
-        
-        $dispTable = $section->addTable('DisposisiTable');
-        $dispTable->addRow();
-        $dispTable->addCell(500)->addText('No', ['bold' => true]);
-        $dispTable->addCell(3000)->addText('Penerima', ['bold' => true]);
-        $dispTable->addCell(3000)->addText('Instruksi', ['bold' => true]);
-        $dispTable->addCell(3500)->addText('Catatan', ['bold' => true]);
-
-        foreach ($suratMasuk->disposisi as $index => $d) {
-            $dispTable->addRow();
-            $dispTable->addCell(500)->addText($index + 1);
-            $dispTable->addCell(3000)->addText($d->penerima->name);
-            $dispTable->addCell(3000)->addText($d->instruksi);
-            $dispTable->addCell(3500)->addText($d->catatan);
-        }
-
-        $objWriter = IOFactory::createWriter($phpWord, 'Word2007');
-        $fileName = 'lembar-disposisi-' . str_replace('/', '-', $suratMasuk->no_surat) . '.docx';
-        $tempFile = tempnam(sys_get_temp_dir(), $fileName);
-        $objWriter->save($tempFile);
-
-        return response()->download($tempFile, $fileName)->deleteFileAfterSend(true);
     }
 }

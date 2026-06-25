@@ -17,9 +17,7 @@ class SuratKeluar extends Model
         'penerima',
         'instansi_penerima',
         'perihal',
-        'status',
         'file_lampiran',
-        'catatan',
         'created_by',
     ];
 

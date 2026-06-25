@@ -25,13 +25,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('surat-masuk/create', [SuratMasukController::class, 'create'])->name('surat-masuk.create')->middleware('role:sekretaris');
     Route::post('surat-masuk', [SuratMasukController::class, 'store'])->name('surat-masuk.store')->middleware('role:sekretaris');
     Route::get('surat-masuk/{surat_masuk}', [SuratMasukController::class, 'show'])->name('surat-masuk.show');
-    Route::post('surat-masuk/{surat_masuk}/komentar', [SuratMasukController::class, 'addComment'])->name('surat-masuk.komentar.store')->middleware('role:pimpinan');
     Route::get('surat-masuk/{surat_masuk}/edit', [SuratMasukController::class, 'edit'])->name('surat-masuk.edit')->middleware('role:sekretaris');
     Route::put('surat-masuk/{surat_masuk}', [SuratMasukController::class, 'update'])->name('surat-masuk.update')->middleware('role:sekretaris');
     Route::delete('surat-masuk/{surat_masuk}', [SuratMasukController::class, 'destroy'])->name('surat-masuk.destroy')->middleware('role:sekretaris');
-    
-    Route::get('surat-masuk/{surat_masuk}/export/pdf', [SuratMasukController::class, 'exportPdf'])->name('surat-masuk.export.pdf')->middleware('role:pimpinan,sekretaris');
-    Route::get('surat-masuk/{surat_masuk}/export/word', [SuratMasukController::class, 'exportWord'])->name('surat-masuk.export.word')->middleware('role:pimpinan,sekretaris');
 
     // Surat Keluar
     Route::get('surat-keluar', [SuratKeluarController::class, 'index'])->name('surat-keluar.index');
@@ -53,6 +49,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('laporan', [LaporanController::class, 'index'])->name('laporan.index')->middleware('role:pimpinan,sekretaris');
     Route::get('laporan/export/pdf', [LaporanController::class, 'exportPdf'])->name('laporan.export.pdf')->middleware('role:pimpinan,sekretaris');
     Route::get('laporan/export/word', [LaporanController::class, 'exportWord'])->name('laporan.export.word')->middleware('role:pimpinan,sekretaris');
+    
 });
 
 require __DIR__.'/auth.php';

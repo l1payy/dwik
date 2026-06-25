@@ -34,16 +34,6 @@ class User extends Authenticatable
         return $this->hasMany(SuratKeluar::class, 'created_by');
     }
 
-    public function disposisiDikirim()
-    {
-        return $this->hasMany(Disposisi::class, 'dari_user_id');
-    }
-
-    public function disposisiDiterima()
-    {
-        return $this->hasMany(Disposisi::class, 'kepada_user_id');
-    }
-
     public function notifikasi()
     {
         return $this->hasMany(Notifikasi::class);
@@ -57,11 +47,6 @@ class User extends Authenticatable
     public function isPimpinan()
     {
         return $this->role === 'pimpinan';
-    }
-
-    public function isStaff()
-    {
-        return $this->role === 'staff';
     }
 
     /**

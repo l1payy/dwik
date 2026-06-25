@@ -29,10 +29,6 @@ class SuratKeluarController extends Controller
             });
         }
 
-        if ($request->has('status') && $request->status != 'semua') {
-            $query->where('status', $request->status);
-        }
-
         $suratKeluar = $query->latest()->paginate(10);
 
         return view('surat-keluar.index', compact('suratKeluar'));
@@ -65,7 +61,6 @@ class SuratKeluarController extends Controller
         }
 
         $validated['created_by'] = Auth::id();
-        $validated['status'] = 'disetujui';
         $validated['instansi_penerima'] = $request->penerima; // Keep this as is for now or add to form later
 
         SuratKeluar::create($validated);
@@ -105,7 +100,6 @@ class SuratKeluarController extends Controller
         }
 
         $validated['instansi_penerima'] = $request->penerima;
-        $validated['status'] = 'disetujui';
 
         $suratKeluar->update($validated);
 

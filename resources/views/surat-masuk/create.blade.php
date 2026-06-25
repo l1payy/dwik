@@ -65,15 +65,6 @@
                             <x-input-error :messages="$errors->get('perihal')" class="mt-2" />
                         </div>
 
-                        <!-- Catatan -->
-                        <div class="space-y-2">
-                            <label for="catatan" class="text-sm font-bold text-gray-700 uppercase tracking-wider">Disposisi</label>
-                            <textarea name="catatan" id="catatan" rows="2"
-                                class="block w-full px-4 py-3 bg-gray-50 border-gray-200 rounded-xl text-sm focus:ring-primary focus:border-primary transition-all"
-                                placeholder="Tulis disposisi di sini...">{{ old('catatan') }}</textarea>
-                            <x-input-error :messages="$errors->get('catatan')" class="mt-2" />
-                        </div>
-
                         <!-- File Lampiran -->
                         <div class="space-y-2">
                             <label for="file_lampiran" class="text-sm font-bold text-gray-700 uppercase tracking-wider">File Lampiran</label>

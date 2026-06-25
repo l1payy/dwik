@@ -46,7 +46,6 @@
                                     <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase">Tanggal</th>
                                     <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase">Pengirim</th>
                                     <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase">Perihal</th>
-                                    <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase">Disposisi</th>
                                     <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase text-center">Aksi</th>
                                 </tr>
                             </thead>
@@ -65,9 +64,6 @@
                                             <td class="px-6 py-4">
                                                 <div class="text-sm text-gray-600 line-clamp-2 leading-relaxed">{{ $item->perihal }}</div>
                                             </td>
-                                        <td class="px-6 py-4">
-                                            <div class="text-sm text-gray-600">{{ $item->catatan ?? '-' }}</div>
-                                        </td>
                                         <td class="px-6 py-4">
                                             <div class="flex justify-center items-center space-x-2">
                                             <a href="{{ route('surat-masuk.show', $item) }}" class="p-1.5 text-green-600 hover:bg-green-50 rounded-lg transition-colors" title="Lihat">
@@ -108,7 +104,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="6" class="px-6 py-12 text-center text-gray-500">
+                                        <td colspan="5" class="px-6 py-12 text-center text-gray-500">
                                             Tidak ada data surat masuk.
                                         </td>
                                     </tr>

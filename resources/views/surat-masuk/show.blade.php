@@ -32,12 +32,6 @@
                         <label class="block text-sm font-semibold text-gray-500 uppercase mb-1">Perihal</label>
                         <p class="text-lg font-medium text-gray-900">{{ $suratMasuk->perihal }}</p>
                     </div>
-                    @if($suratMasuk->catatan)
-                        <div class="md:col-span-2">
-                            <label class="block text-sm font-semibold text-gray-500 uppercase mb-1">Catatan</label>
-                            <p class="text-gray-700">{{ $suratMasuk->catatan }}</p>
-                        </div>
-                    @endif
                     @if($suratMasuk->file_lampiran)
                         <div class="md:col-span-2">
                             <label class="block text-sm font-semibold text-gray-500 uppercase mb-1">File Lampiran</label>
@@ -56,37 +50,6 @@
                             </div>
                         </div>
                     @endif
-                </div>
-            </div>
-
-            <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
-                <h2 class="text-xl font-bold text-gray-900 mb-6">Komentar</h2>
-
-                @if(auth()->user()->isPimpinan())
-                    <form action="{{ route('surat-masuk.komentar.store', $suratMasuk) }}" method="POST" class="mb-6">
-                        @csrf
-                        <div class="mb-4">
-                            <label for="komentar" class="block text-sm font-semibold text-gray-500 mb-2">Tambah Komentar</label>
-                            <textarea id="komentar" name="komentar" rows="3" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-primary focus:border-primary" required placeholder="Tulis komentar Anda..."></textarea>
-                        </div>
-                        <button type="submit" class="inline-flex items-center px-6 py-3 bg-primary text-white rounded-xl font-bold hover:bg-orange-600 transition">
-                            Kirim Komentar
-                        </button>
-                    </form>
-                @endif
-
-                <div class="space-y-4">
-                    @forelse($suratMasuk->komentar as $komentar)
-                        <div class="p-4 bg-gray-50 rounded-xl">
-                            <div class="flex justify-between items-start mb-2">
-                                <div class="font-semibold text-gray-900">{{ $komentar->user->name }}</div>
-                                <div class="text-sm text-gray-500">{{ $komentar->created_at->format('d M Y H:i') }}</div>
-                            </div>
-                            <p class="text-gray-700">{{ $komentar->komentar }}</p>
-                        </div>
-                    @empty
-                        <p class="text-gray-500">Belum ada komentar.</p>
-                    @endforelse
                 </div>
             </div>
         </div>

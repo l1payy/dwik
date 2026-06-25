@@ -20,9 +20,7 @@ class SuratMasuk extends Model
         'pengirim',
         'instansi_pengirim',
         'perihal',
-        'status',
         'file_lampiran',
-        'catatan',
         'created_by',
     ];
 
@@ -35,15 +33,5 @@ class SuratMasuk extends Model
     public function creator()
     {
         return $this->belongsTo(User::class, 'created_by');
-    }
-
-    public function disposisi()
-    {
-        return $this->hasMany(Disposisi::class, 'surat_masuk_id');
-    }
-
-    public function komentar()
-    {
-        return $this->hasMany(KomentarSuratMasuk::class)->latest();
     }
 }
