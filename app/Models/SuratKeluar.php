@@ -19,6 +19,7 @@ class SuratKeluar extends Model
         'perihal',
         'file_lampiran',
         'created_by',
+        'status',
     ];
 
     protected $casts = [

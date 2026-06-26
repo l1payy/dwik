@@ -35,18 +35,12 @@
                     @if($suratMasuk->file_lampiran)
                         <div class="md:col-span-2">
                             <label class="block text-sm font-semibold text-gray-500 uppercase mb-1">File Lampiran</label>
-                            <div class="flex items-center gap-4">
+                            <div class="flex flex-col items-center gap-4">
                                 @if(in_array(pathinfo($suratMasuk->file_lampiran, PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png', 'gif']))
                                     <img src="{{ Storage::url($suratMasuk->file_lampiran) }}" alt="Lampiran" class="max-w-md rounded-lg border border-gray-200">
                                 @elseif(pathinfo($suratMasuk->file_lampiran, PATHINFO_EXTENSION) === 'pdf')
                                     <iframe src="{{ Storage::url($suratMasuk->file_lampiran) }}" class="w-full h-96 rounded-lg border border-gray-200"></iframe>
                                 @endif
-                                <a href="{{ Storage::url($suratMasuk->file_lampiran) }}" download class="inline-flex items-center px-4 py-2 bg-primary text-white rounded-lg font-medium hover:bg-orange-600 transition">
-                                    <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                                    </svg>
-                                    Download
-                                </a>
                             </div>
                         </div>
                     @endif

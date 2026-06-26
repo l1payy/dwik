@@ -48,7 +48,7 @@ class SuratKeluarController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'no_surat' => 'required|string|unique:surat_keluar,no_surat',
+            'no_surat' => 'required|string',
             'tanggal_surat' => 'required|date',
             'penerima' => 'required|string',
             'perihal' => 'required|string',
@@ -61,7 +61,7 @@ class SuratKeluarController extends Controller
         }
 
         $validated['created_by'] = Auth::id();
-        $validated['instansi_penerima'] = $request->penerima; // Keep this as is for now or add to form later
+        $validated['instansi_penerima'] = $request->penerima;
 
         SuratKeluar::create($validated);
 

@@ -18,8 +18,8 @@
                     <form action="{{ route('surat-masuk.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
                         @csrf
 
+                        <!-- Row 1: No Surat & Tanggal Surat -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <!-- No Surat -->
                             <div class="space-y-2">
                                 <label for="no_surat" class="text-sm font-bold text-gray-700 uppercase tracking-wider">Nomor Surat</label>
                                 <input type="text" name="no_surat" id="no_surat" value="{{ old('no_surat') }}" required
@@ -28,25 +28,23 @@
                                 <x-input-error :messages="$errors->get('no_surat')" class="mt-2" />
                             </div>
 
-                            <!-- Tanggal Surat -->
                             <div class="space-y-2">
                                 <label for="tanggal_surat" class="text-sm font-bold text-gray-700 uppercase tracking-wider">Tanggal Surat</label>
                                 <input type="date" name="tanggal_surat" id="tanggal_surat" value="{{ old('tanggal_surat') }}" required
                                     class="block w-full px-4 py-3 bg-gray-50 border-gray-200 rounded-xl text-sm focus:ring-primary focus:border-primary transition-all">
                                 <x-input-error :messages="$errors->get('tanggal_surat')" class="mt-2" />
                             </div>
+                        </div>
 
-                            <!-- Tanggal Masuk -->
+                        <!-- Row 2: Tanggal Diterima & Nama Pengirim -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-2">
                                 <label for="tanggal_masuk" class="text-sm font-bold text-gray-700 uppercase tracking-wider">Tanggal Diterima</label>
                                 <input type="date" name="tanggal_masuk" id="tanggal_masuk" value="{{ old('tanggal_masuk', date('Y-m-d')) }}" required
                                     class="block w-full px-4 py-3 bg-gray-50 border-gray-200 rounded-xl text-sm focus:ring-primary focus:border-primary transition-all">
                                 <x-input-error :messages="$errors->get('tanggal_masuk')" class="mt-2" />
                             </div>
-                        </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <!-- Pengirim -->
                             <div class="space-y-2">
                                 <label for="pengirim" class="text-sm font-bold text-gray-700 uppercase tracking-wider">Nama Pengirim</label>
                                 <input type="text" name="pengirim" id="pengirim" value="{{ old('pengirim') }}" required

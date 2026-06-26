@@ -137,13 +137,11 @@
                 </div>
                 <div class="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
                     @forelse(\App\Models\Notifikasi::where('user_id', Auth::id())->latest()->limit(10)->get() as $notif)
-                        <div class="flex items-start p-4 rounded-2xl border {{ !$notif->is_read ? 'bg-white border-orange-200 shadow-sm' : 'bg-white border-gray-100' }}">
-                            <div class="shrink-0 {{ $notif->tipe == 'surat_masuk' ? 'bg-blue-100 text-blue-600' : 'bg-orange-100 text-[#E67725]' }} p-2.5 rounded-xl">
-                                @if($notif->tipe == 'surat_masuk')
-                                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-                                @else
-                                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" /></svg>
-                                @endif
+                        <a href="{{ $notif->related_type == 'App\Models\SuratMasuk' ? route('surat-masuk.show', $notif->related_id) : route('surat-keluar.show', $notif->related_id) }}" 
+                           class="block flex items-start p-4 rounded-2xl border {{ !$notif->is_read ? 'bg-white border-orange-200 shadow-sm' : 'bg-white border-gray-100' }} hover:border-orange-300 hover:shadow-lg transition-all"
+                           onclick="event.preventDefault(); fetch('{{ route('notifikasi.read', $notif->id) }}', { method: 'POST', headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' } }).then(() => window.location.href = this.href);">
+                            <div class="shrink-0 bg-blue-100 text-blue-600 p-2.5 rounded-xl">
+                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
                             </div>
                             <div class="ms-4 flex-1">
                                 <div class="flex justify-between items-start">
@@ -155,7 +153,7 @@
                                 <p class="text-xs text-gray-500 mt-1 leading-relaxed">{{ $notif->pesan }}</p>
                                 <p class="text-[10px] text-gray-400 mt-2 uppercase font-black tracking-widest">{{ $notif->created_at->diffForHumans() }}</p>
                             </div>
-                        </div>
+                        </a>
                     @empty
                         <div class="flex flex-col items-center justify-center h-full text-center p-8">
                             <div class="p-6 bg-white rounded-3xl shadow-sm border border-gray-100 mb-4">

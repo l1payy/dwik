@@ -35,8 +35,21 @@
         <div class="min-h-screen flex flex-col">
             @include('layouts.navigation')
 
+            <!-- Flash Messages -->
+            @if(session('success'))
+                <div class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg mx-auto max-w-4xl mt-4">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if(session('error'))
+                <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mx-auto max-w-4xl mt-4">
+                    {{ session('error') }}
+                </div>
+            @endif
+
             <!-- Page Content -->
-            <main class="flex-grow relative z-0 pt-20">
+            <main class="flex-grow relative z-0 pt-24">
                 {{ $slot }}
             </main>
 

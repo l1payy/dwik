@@ -13,7 +13,20 @@ class SuratKeluarObserver
      */
     public function created(SuratKeluar $suratKeluar): void
     {
-        // No auto-notification on creation if it's a draft
+        // Notify Sekretaris and Pimpinan
+        $users = User::whereIn('role', ['sekretaris', 'pimpinan'])->get();
+
+        foreach ($users as $user) {
+            Notifikasi::create([
+                'user_id' => $user->id,
+                'tipe' => 'surat_keluar',
+                'judul' => 'Surat Keluar Baru',
+                'pesan' => "Ada surat keluar baru ditujukan ke {$suratKeluar->penerima} dengan perihal: {$suratKeluar->perihal}",
+                'is_read' => false,
+                'related_id' => $suratKeluar->id,
+                'related_type' => get_class($suratKeluar),
+            ]);
+        }
     }
 
     /**
